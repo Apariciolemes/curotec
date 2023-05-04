@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #ffffff;
+  --red: #f30168;
+  --dark: #292d32;
+  --gray: #d9d9d9;
+  --background: #fafafc;
+}
+
+html {
+  @media (max-width: 1080px) {
+    font-size: 93.75%; // 15px
+  }
+  @media (max-width: 720px) {
+    font-size: 87.5%; // 14px
+  }
+}
+
+hr {
+  border: 1px solid rgba(196, 196, 196, 0.5);
+  width: 100%;
+  margin: 20px 0;
+}
+
+body {
+  background: var(--background);
+}
+
+body,
+input,
+textarea,
+select,
+button {
+  font: 400 1rem 'Sora', sans-serif;
+}
+
+button {
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+input {
+  padding: 0 16px;
+}
+
+// reusables
+.w-100 {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
