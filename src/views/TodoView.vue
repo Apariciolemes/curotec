@@ -10,37 +10,41 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref, watch } from 'vue'
 
 // interface
+import type { Ref } from 'vue'
 import type { Task } from '../interface/Task'
 
 // components
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
 
-let listTasks: Array<Task> = reactive([])
+const listTasks: Ref<Task[]> = ref([])
+
+watch(
+  () => listTasks.value.length,
+  (_) => {
+    updateTaskStorage()
+  }
+)
+
+const updateTaskStorage = () => localStorage.setItem('tasks', JSON.stringify(listTasks.value))
 
 function handleAddNewTask(task: Task) {
-  listTasks.push(task)
-  localStorage.setItem('tasks', JSON.stringify(listTasks))
+  listTasks.value.push(task)
 }
 
 function handleDeleteTask(id: String) {
-  const index = listTasks.findIndex((task) => task.id !== id)
-  listTasks.splice(index, 1)
-  localStorage.setItem('tasks', JSON.stringify(listTasks))
+  listTasks.value = listTasks.value.filter((task) => task.id != id)
 }
 
 function handleChangeStatus(id: String) {
-  for (const task of listTasks) {
+  for (const task of listTasks.value) {
     if (task.id === id) {
       task.status = !task.status
+      updateTaskStorage()
     }
   }
-
-  localStorage.setItem('tasks', JSON.stringify(listTasks))
 }
 </script>
-
-<style lang="scss"></style>

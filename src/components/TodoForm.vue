@@ -5,27 +5,32 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { v4 as uuidv4 } from 'uuid'
 import { defineEmits, reactive } from 'vue'
 
 // components
-import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import BaseInput from '@/components/BaseInput.vue'
 
-// task
-const task = reactive({
+// types
+import type { Task } from '@/interface/Task'
+
+const initialTask = () => ({
   id: '',
   title: '',
   status: false
 })
 
+let task: Task = reactive(initialTask())
+
 const emit = defineEmits(['emit-add-task'])
 
 function handleAdd() {
-  const id = Math.floor(Math.random() * (99999999 - 1 + 1)) + 1
-
-  task.id = id
+  task.id = uuidv4()
   emit('emit-add-task', task)
+
+  task = initialTask()
 }
 </script>
 

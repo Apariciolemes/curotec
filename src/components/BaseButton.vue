@@ -4,7 +4,7 @@
   </button>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { defineProps, defineEmits, ref } from 'vue'
 
 const emit = defineEmits(['emit-click'])
